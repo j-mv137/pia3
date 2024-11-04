@@ -20,13 +20,16 @@ export default function Home() {
   const onSubmit: SubmitHandler<FormType> = useCallback(
     async (data) => {
       try {
-        const response = await fetch("http://localhost:3002/api/new-survey", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        });
+        const response = await fetch(
+          "https://api-pia.onrender.com/api/new-survey",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          }
+        );
 
         if (!response.ok) {
           const errorText = await response.text(); // Get the raw response text
