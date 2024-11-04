@@ -6,7 +6,6 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { useCallback } from "react";
 import { useRouter } from "next/navigation";
-import { Toast } from "@/components/ui/toast";
 import { useToast } from "@/hooks/use-toast";
 
 export default function Home() {
@@ -18,30 +17,33 @@ export default function Home() {
   } = useForm<FormType>();
   const router = useRouter();
   const { toast } = useToast();
-  const onSubmit: SubmitHandler<FormType> = useCallback(async (data) => {
-    try {
-      const response = await fetch("http://localhost:3002/api/new-survey", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+  const onSubmit: SubmitHandler<FormType> = useCallback(
+    async (data) => {
+      try {
+        const response = await fetch("http://localhost:3002/api/new-survey", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
 
-      if (!response.ok) {
-        const errorText = await response.text(); // Get the raw response text
-        throw new Error(`Error: ${response.status} - ${errorText}`);
+        if (!response.ok) {
+          const errorText = await response.text(); // Get the raw response text
+          throw new Error(`Error: ${response.status} - ${errorText}`);
+        }
+
+        toast({ description: "La encuesta ha sido enviada con éxito" });
+        router.push("/terminado");
+      } catch (err) {
+        toast({
+          description: "Error al mandar el formulario. Inténtelo más tarde",
+        });
+        console.error(err);
       }
-
-      toast({ description: "La encuesta ha sido enviada con éxito" });
-      router.push("/terminado");
-    } catch (err) {
-      toast({
-        description: "Error al mandar el formulario. Inténtelo más tarde",
-      });
-      console.error(err);
-    }
-  }, []);
+    },
+    [router, toast]
+  );
 
   return (
     <div className="flex justify-center items-center md:px-20 md:py-10">
