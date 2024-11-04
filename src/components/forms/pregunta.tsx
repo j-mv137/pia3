@@ -89,7 +89,7 @@ export const Q: React.FC<QProps> = ({
                   if (num === 1 || num === 3 || num === 5) {
                     try {
                       const val = Number(value);
-                      if (val <= 7) return true;
+                      if (val >= 0 && val <= 7) return true;
                     } catch {
                       return false;
                     }
@@ -98,7 +98,7 @@ export const Q: React.FC<QProps> = ({
                   }
                   try {
                     const val = Number(value);
-                    if (val <= 24) return true;
+                    if (val >= 0 && val <= 24) return true;
                   } catch {
                     return false;
                   }
@@ -131,7 +131,7 @@ export const Q: React.FC<QProps> = ({
                   validate: (value) => {
                     try {
                       const val = Number(value);
-                      if (val <= 60) return true;
+                      if (val >= 0 && val <= 60) return true;
                     } catch {
                       return false;
                     }
