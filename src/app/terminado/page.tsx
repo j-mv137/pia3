@@ -15,7 +15,7 @@ const End: React.FC = () => {
           <Button
             variant="link"
             onClick={() => {
-              router.back();
+              router.push("/");
             }}
           >
             Regresar

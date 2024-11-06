@@ -51,9 +51,9 @@ export default function Home() {
   return (
     <div className="flex justify-center items-center md:px-20 md:py-10">
       <div className="md:max-w-screen-sm w-full px-4 py-8 flex flex-col items-center justify-center md:px-20 md:rounded-xl md:box-content">
-        <h1 className="text-center font-bold md:text-xl text-lg md:mb-8 mb-6">
+        <h2 className="text-center font-semibold md:mb-8 mb-6">
           CUESTIONARIO INTERNACIONAL DE ACTIVIDAD FÍSICA (IPAQ)
-        </h1>
+        </h2>
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="md:text-base text-sm"
@@ -196,7 +196,7 @@ export default function Home() {
             className="hover:bg-neutral-400 transition active:bg-neutral-600"
             type="submit"
           >
-            Submit
+            Enviar
           </Button>
         </form>
       </div>
