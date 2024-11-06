@@ -40,7 +40,7 @@ export default function Home() {
         router.push("/terminado");
       } catch (err) {
         toast({
-          description: "Error al mandar el formulario. Inténtelo más tarde",
+          description: "Error al mandar el formulario, inténtelo de nuevo.",
         });
         console.error(err);
       }
@@ -49,7 +49,7 @@ export default function Home() {
   );
 
   return (
-    <div className="flex justify-center items-center md:px-20 md:py-10">
+    <div className="flex justify-center items-center md:px-20">
       <div className="md:max-w-screen-sm w-full px-4 py-8 flex flex-col items-center justify-center md:px-20 md:rounded-xl md:box-content">
         <h2 className="text-center font-semibold md:mb-8 mb-6">
           CUESTIONARIO INTERNACIONAL DE ACTIVIDAD FÍSICA (IPAQ)
