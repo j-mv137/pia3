@@ -23,7 +23,7 @@ const Calif = () => {
   const onSubmit: SubmitHandler<CalifFormType> = useCallback(
     async (data) => {
       try {
-        const response = await fetch("http://localhost:3002/api/calif", {
+        const response = await fetch("https://api-pia.onrender.com/api/calif", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
