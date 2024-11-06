@@ -132,7 +132,11 @@ const RegistroEncuesta = () => {
             data="etnia"
             error={errors.etnia}
           />
-          <Button type="submit" className="" variant="default">
+          <Button
+            className="hover:bg-neutral-400 transition active:bg-neutral-600"
+            type="submit"
+            variant="default"
+          >
             Continuar
           </Button>
         </form>
