@@ -1,6 +1,8 @@
 "use client";
 import { QR } from "@/components/forms/pregunta_registro";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
 import { useCallback } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
@@ -19,14 +21,42 @@ export type FormTypeRegistro = {
 };
 
 const RegistroEncuesta = () => {
+  const { toast } = useToast();
+  const router = useRouter();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormTypeRegistro>();
-  const onSubmit: SubmitHandler<FormTypeRegistro> = useCallback((data) => {
-    console.log(data);
-  }, []);
+  const onSubmit: SubmitHandler<FormTypeRegistro> = useCallback(
+    async (data) => {
+      try {
+        const response = await fetch(
+          "https://api-pia.onrender.com/api/register",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          }
+        );
+
+        if (!response.ok) {
+          const errorText = await response.text();
+          throw new Error(`Error: ${response.status} - ${errorText}`);
+        }
+        toast({ description: "El registro se ha llevado a cabo." });
+        router.push("/");
+      } catch (err) {
+        toast({
+          description: "Error al mandar el formulario, inténtelo de nuevo.",
+        });
+        console.error(err);
+      }
+    },
+    [toast, router]
+  );
   return (
     <div className="flex justify-center items-center md:px-20">
       <div className="md:max-w-screen-sm w-full px-4 py-8 flex flex-col items-center justify-left md:px-20 md:rounded-xl md:box-content">
