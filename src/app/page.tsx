@@ -37,7 +37,7 @@ export default function Home() {
         }
 
         toast({ description: "La encuesta ha sido enviada con éxito" });
-        router.push("/calificaciones");
+        router.push("/terminado");
       } catch (err) {
         toast({
           description: "Error al mandar el formulario, inténtelo de nuevo.",
