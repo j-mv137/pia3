@@ -47,7 +47,7 @@ const RegistroEncuesta = () => {
           throw new Error(`Error: ${response.status} - ${errorText}`);
         }
         toast({ description: "El registro se ha llevado a cabo." });
-        router.push("/");
+        router.push("/calificaciones");
       } catch (err) {
         toast({
           description: "Error al mandar el formulario, inténtelo de nuevo.",

@@ -2,22 +2,49 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useToast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
 import { useCallback } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 type CalifFormType = {
-  prom: string;
+  calif: string;
 };
 
 const Calif = () => {
+  const { toast } = useToast();
+  const router = useRouter();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<CalifFormType>();
-  const onSubmit: SubmitHandler<CalifFormType> = useCallback(async (data) => {
-    console.log(data);
-  }, []);
+
+  const onSubmit: SubmitHandler<CalifFormType> = useCallback(
+    async (data) => {
+      try {
+        const response = await fetch("http://localhost:3002/api/calif", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+
+        if (!response.ok) {
+          const errorText = await response.text();
+          throw new Error(`Error: ${response.status} - ${errorText}`);
+        }
+        router.push("/");
+      } catch (err) {
+        toast({
+          description: "Error al mandar el formulario, inténtelo de nuevo.",
+        });
+        console.error(err);
+      }
+    },
+    [toast, router]
+  );
 
   return (
     <div className="flex justify-center items-center md:px-20">
@@ -31,12 +58,12 @@ const Calif = () => {
               ¿Qué calificación obtuviste en el anterior semestre o ciclo
               escolar que cursaste? (En una escala de 0-100)
             </p>
-            {errors.prom && (
+            {errors.calif && (
               <p className="mb-1 text-red-600 text-xs">Entrada inválida</p>
             )}
             <Input
               className="w-3/5 h-4/5 flex text-xs"
-              {...register("prom", {
+              {...register("calif", {
                 required: true,
                 validate: (e) => {
                   try {
